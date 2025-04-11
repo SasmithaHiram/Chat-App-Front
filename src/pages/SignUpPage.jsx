@@ -1,19 +1,20 @@
 import { useState } from "react";
 import { useAuthStore } from "../store/useAuthStore";
 import {
-  Lock,
-  Loader2,
   Eye,
   EyeOff,
+  Loader2,
+  Lock,
   Mail,
   MessageSquare,
   User,
 } from "lucide-react";
 import { Link } from "react-router-dom";
+
 import AuthImagePattern from "../components/AuthImagePattern";
 import toast from "react-hot-toast";
 
-export const SignUpPage = () => {
+const SignUpPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     fullName: "",
@@ -24,23 +25,23 @@ export const SignUpPage = () => {
   const { signup, isSigningUp } = useAuthStore();
 
   const validateForm = () => {
-    if (!formData.fullName.trim()) return toast.error("FULL NAME IS REQUIRED");
-    if (!formData.email.trim()) return toast.error("EMAIL IS REQUIRED");
+    if (!formData.fullName.trim()) return toast.error("Full name is required");
+    if (!formData.email.trim()) return toast.error("Email is required");
     if (!/\S+@\S+\.\S+/.test(formData.email))
-      return toast.error("INVALID EMAIL FORMAT");
-    if (!formData.password) return toast.error("PASSWORD IS REQUIRED");
+      return toast.error("Invalid email format");
+    if (!formData.password) return toast.error("Password is required");
     if (formData.password.length < 6)
-      return toast.error("PASSWORD MUST BE AT LEAST 6 CHARACTERS");
+      return toast.error("Password must be at least 6 characters");
+
     return true;
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const success = validateForm();
 
-    if (success === true) {
-      signup(formData);
-    }
+    if (success === true) signup(formData);
   };
 
   return (
@@ -53,7 +54,7 @@ export const SignUpPage = () => {
             <div className="flex flex-col items-center gap-2 group">
               <div
                 className="size-12 rounded-xl bg-primary/10 flex items-center justify-center 
-            group-hover:bg-primary/20 transition-colors"
+              group-hover:bg-primary/20 transition-colors"
               >
                 <MessageSquare className="size-6 text-primary" />
               </div>
@@ -163,6 +164,8 @@ export const SignUpPage = () => {
         </div>
       </div>
 
+      {/* right side */}
+
       <AuthImagePattern
         title="Join our community"
         subtitle="Connect with friends, share moments, and stay in touch with your loved ones."
@@ -170,5 +173,4 @@ export const SignUpPage = () => {
     </div>
   );
 };
-
 export default SignUpPage;
